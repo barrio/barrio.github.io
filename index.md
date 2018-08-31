@@ -11,6 +11,7 @@ OK, let's go!
 ## 1. Get your tools
 
 - pipenv
+- flask (of course)
 - pytest, pytest-cov
 
 Maintaining a clean python environment has been a source of frustration in the past, so we're using `pipenv`, the latest approach managing dependencies more easily. Pytest is just as modular as Flask with it's powerful fixture system and it is using Python's `assert`-statement, the most pythonic way of testing ever (IMHO). In TDD we surely want test coverage, so we install the pytest-cov plugin too.
@@ -38,3 +39,23 @@ Most of you know the steps of TDD, I repeat them briefly:
 In the 1st step I do what I shouldn't: I skip step 2 for some reasons. I could present you the hello world few liner one file app from the official docs, but this has some shortcommings when testing comes in: The app-object is already created, but we want a fresh app instance for every single test, right? The solution is to move the creation of the flask app into a so called 'factory function'. 
 We also want distinct parts of the app like user-authentication to be reusable, therefore we use blueprints. And finally we want different configurations for production, testing and development to be created dynamically at runtime.
 This forced us to write some boilerplate right from the start (5 dirs & 8 files), but this will definitely pay off later. Fortunately each file only contains a few lines of code.
+
+```shell
+touch conftest.py
+mkdir tests
+```
+
+Create tests/test_base.py with
+```python
+from flask import current_app
+
+
+def test_app_exists(client):
+    assert current_app
+```
+First we test if an instance of our app was successfully created. Now run `pytest` in the virtualenv, it should fail:
+```shell
+pipenv shell
+pytest
+```
+
