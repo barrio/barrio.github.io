@@ -12,7 +12,7 @@ OK, let's go!
 
 Maintaining a clean python environment has been a source of frustration in the past, so we're using `pipenv`, the latest approach managing dependencies more easily.
 
-```bash
+```shell
 pip install pipenv --user
 mkdir flasky-tdd
 cd flasky-tdd
